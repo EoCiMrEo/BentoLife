@@ -17,7 +17,7 @@ After installing, create or choose a BentoLife vault. Your content stays in the 
 
 ## Documentation
 
-After each release publish, this repository is updated from the development repository with public-safe app source and user-facing docs.
+After each release publish, this repository is updated from `bentolife-dev` with public-safe app source and user-facing docs.
 
 Start with:
 
@@ -25,6 +25,8 @@ Start with:
 - `docs/diagrams/README.md`
 - `docs/i18n/vi-glossary.md`
 
-## Release boundary
+## Public release boundary
 
 This repository is for public releases. Development logs, task trackers, private planning docs, editor folders, test output, and CI-only files are not part of this public release repository.
+
+The release exporter preserves this root README and the root license files, so public-facing repository information can be reviewed separately from the development README.

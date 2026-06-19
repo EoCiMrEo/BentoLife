@@ -84,9 +84,3 @@ assets/readme/architect.png
 ```
 Once those files exist, this README can show the product visually without changing the core copy.
 -->
-
-## 🧱 Public release boundary
-
-This repository is for public releases. Development logs, task trackers, private planning docs, editor folders, test output, release operations, and CI-only files are not part of this public release repository.
-
-The release exporter preserves this root README and the root license files, so public-facing repository information can be reviewed separately from the private development README.

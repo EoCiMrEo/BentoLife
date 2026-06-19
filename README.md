@@ -70,6 +70,7 @@ Start with:
 - `docs/diagrams/README.md`
 - `docs/i18n/vi-glossary.md`
 
+<!--
 ## 🖼 Preview images
 
 Real app screenshots should be added under `assets/readme/` after they are captured from the released build:
@@ -81,8 +82,8 @@ assets/readme/dashboard.png
 assets/readme/modules.png
 assets/readme/architect.png
 ```
-
 Once those files exist, this README can show the product visually without changing the core copy.
+-->
 
 ## 🧱 Public release boundary
 

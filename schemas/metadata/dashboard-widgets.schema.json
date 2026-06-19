@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bentolife.local/schemas/dashboard-widgets.schema.json",
+  "title": "BentoLife Dashboard Widget State",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "instances", "warnings"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "instances": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/widgetInstance" }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          { "type": "string" },
+          { "$ref": "#/$defs/warning" }
+        ]
+      }
+    },
+    "recovery_backup_path": {
+      "type": ["string", "null"]
+    }
+  },
+  "$defs": {
+    "widgetInstance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["instance_id", "widget_type", "module_id", "config", "layout", "collapsed"],
+      "properties": {
+        "instance_id": { "type": "string", "pattern": "^bl_widget_" },
+        "widget_type": { "type": "string", "pattern": "^[a-z][a-z0-9_-]*\\.[a-z][a-z0-9_-]*$" },
+        "module_id": { "type": "string", "pattern": "^[a-z][a-z0-9_-]*$" },
+        "title": { "type": ["string", "null"] },
+        "config": { "type": "object", "additionalProperties": true },
+        "layout": { "$ref": "#/$defs/layout" },
+        "collapsed": { "type": "boolean" }
+      }
+    },
+    "layout": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["column", "row", "width", "height"],
+      "properties": {
+        "column": { "type": "integer", "minimum": 1, "maximum": 7 },
+        "row": { "type": "integer", "minimum": 1 },
+        "width": { "type": "integer", "minimum": 1, "maximum": 7 },
+        "height": { "type": "integer", "minimum": 1, "maximum": 3 }
+      }
+    },
+    "warning": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "message"],
+      "properties": {
+        "instance_id": { "type": ["string", "null"] },
+        "module_id": { "type": ["string", "null"] },
+        "widget_type": { "type": ["string", "null"] },
+        "code": { "type": "string" },
+        "message": { "type": "string" }
+      }
+    }
+  }
+}

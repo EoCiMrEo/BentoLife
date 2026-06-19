@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bentolife.local/schemas/workspace-ui-state.schema.json",
+  "title": "BentoLife Workspace UI State",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema_version", "workspace_name", "default_theme", "architect_sections", "updated_at"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "workspace_name": { "type": "string" },
+    "default_theme": { "type": "string" },
+    "architect_active_tab": {
+      "type": "string",
+      "enum": ["modules", "dashboard", "appearance", "schemas", "data_graph", "recovery"]
+    },
+    "architect_sections": {
+      "type": "object",
+      "additionalProperties": { "type": "boolean" }
+    },
+    "updated_at": { "type": "string" }
+  }
+}

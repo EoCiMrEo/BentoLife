@@ -1,0 +1,70 @@
+{
+  "schema_version": 2,
+  "module_id": "habits",
+  "display_name": "Habits",
+  "kind": "optional",
+  "entity_type": "habit",
+  "data_path": "modules/habits/data",
+  "index_path": "modules/habits/INDEX.md",
+  "default_view": "cards",
+  "enabled_by_default": false,
+  "fields": [
+    { "id": "name", "label": "Name", "type": "text", "required": true, "aliases": ["name", "title"], "renderer": "text", "source": "h1" },
+    { "id": "frequency", "label": "Frequency", "type": "enum", "required": false, "aliases": ["frequency", "repeat"], "renderer": "status", "source": "field", "default": "Daily", "options": ["Daily", "Weekly", "Monthly", "Custom"] },
+    { "id": "target", "label": "Target", "type": "text", "required": false, "aliases": ["target", "goal"], "renderer": "text", "source": "field" },
+    { "id": "streak", "label": "Streak", "type": "number", "required": false, "aliases": ["streak"], "renderer": "progress", "source": "derived" },
+    { "id": "tags", "label": "Tags", "type": "tags", "required": false, "aliases": ["tags"], "renderer": "tags", "source": "field" },
+    { "id": "relationships", "label": "Relationships", "type": "relationship", "required": false, "aliases": ["relationships", "related"], "renderer": "relation", "source": "field_or_wikilink" },
+    { "id": "notes", "label": "Notes", "type": "markdown", "required": false, "aliases": ["notes"], "renderer": "markdown", "source": "section" },
+    { "id": "checkins", "label": "Check-ins", "type": "list", "required": false, "aliases": ["check-ins", "checkins"], "renderer": "list", "source": "section:Check-ins" }
+  ],
+  "renderers": ["text", "status", "progress", "tags", "relation", "markdown", "list", "generic"],
+  "validation": {
+    "paths_are_vault_relative": true,
+    "checkins": "YYYY-MM-DD",
+    "unknown_fields": "warn_and_preserve",
+    "unknown_blocks": "generic"
+  },
+  "views": ["cards", "list", "focused_entity"],
+  "widgets": [
+    {
+      "id": "habits.daily-checkin",
+      "module_id": "habits",
+      "label": "Daily Habit Check-in",
+      "description": "Shows habits ready for today's check-in.",
+      "renderer_id": "habit_checkin",
+      "default_size": { "width": 2, "height": 1 },
+      "allowed_sizes": [
+        { "width": 1, "height": 1 },
+        { "width": 2, "height": 1 },
+        { "width": 2, "height": 2 }
+      ],
+      "config_schema": {
+        "show_streak": { "type": "boolean", "default": true }
+      }
+    },
+    {
+      "id": "habits.weekly-progress",
+      "module_id": "habits",
+      "label": "Weekly Habit Progress",
+      "description": "Shows weekly habit progress.",
+      "renderer_id": "progress",
+      "default_size": { "width": 2, "height": 2 },
+      "allowed_sizes": [
+        { "width": 2, "height": 1 },
+        { "width": 2, "height": 2 },
+        { "width": 3, "height": 2 },
+        { "width": 4, "height": 2 }
+      ],
+      "config_schema": {
+        "range_days": { "type": "number", "default": 7, "min": 1, "max": 31 }
+      }
+    }
+  ],
+  "theme": {
+    "--habit-progress-height": "0.375rem",
+    "--habit-streak-emphasis": "rgb(51 92 74)",
+    "--habit-completed-state": "rgb(126 157 134)"
+  },
+  "migration_version": 1
+}

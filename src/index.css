@@ -1,0 +1,175 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sage: var(--sage);
+  --color-sage-foreground: var(--sage-foreground);
+  --color-soft-blue: var(--soft-blue);
+  --color-soft-blue-foreground: var(--soft-blue-foreground);
+  --color-amber-note: var(--amber-note);
+  --color-amber-note-foreground: var(--amber-note-foreground);
+  --shadow-soft: var(--shadow-soft);
+  --shadow-lifted: var(--shadow-lifted);
+  --radius-lg: 0.5rem;
+  --radius-md: 0.375rem;
+  --radius-sm: 0.25rem;
+}
+
+:root {
+  color-scheme: light;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --background: #f6f7f4;
+  --foreground: #202521;
+  --card: #ffffff;
+  --card-foreground: #202521;
+  --popover: #ffffff;
+  --popover-foreground: #202521;
+  --primary: #335c4a;
+  --primary-foreground: #f8fbf7;
+  --secondary: #e8eee9;
+  --secondary-foreground: #26342d;
+  --muted: #edf0eb;
+  --muted-foreground: #66716a;
+  --accent: #e5edf4;
+  --accent-foreground: #213346;
+  --border: #dfe4dc;
+  --input: #d9e0d7;
+  --ring: #6f927f;
+  --sage: #7e9d86;
+  --sage-foreground: #213528;
+  --soft-blue: #7d98ad;
+  --soft-blue-foreground: #203343;
+  --amber-note: #d7b46a;
+  --amber-note-foreground: #403112;
+  --shadow-soft: 0 8px 18px rgb(39 50 42 / 0.06);
+  --shadow-lifted: 0 12px 28px rgb(39 50 42 / 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  border-color: var(--border);
+}
+
+html {
+  min-width: 320px;
+  background: var(--background);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.62), rgb(246 247 244 / 0) 28rem),
+    var(--background);
+  color: var(--foreground);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+[data-icon] {
+  width: 1rem;
+  height: 1rem;
+  stroke-width: 2;
+}
+
+[data-icon="inline-start"] {
+  margin-inline-start: -0.125rem;
+}
+
+[data-icon="inline-end"] {
+  margin-inline-end: -0.125rem;
+}
+
+[data-widget-grid] {
+  contain: layout paint style;
+}
+
+[data-widget-card] {
+  contain: layout paint style;
+}
+
+html[data-perf-safe],
+html[data-perf-no-gradient] {
+  background: var(--background);
+}
+
+html[data-perf-safe] body,
+html[data-perf-no-gradient] body {
+  background: var(--background);
+}
+
+html[data-perf-safe],
+html[data-perf-no-shadows] {
+  --shadow-soft: none;
+  --shadow-lifted: none;
+}
+
+html[data-perf-safe] [class*="shadow-"],
+html[data-perf-no-shadows] [class*="shadow-"] {
+  box-shadow: none;
+}
+
+html[data-perf-safe] [class*="backdrop-blur"],
+html[data-perf-no-backdrop-blur] [class*="backdrop-blur"] {
+  backdrop-filter: none;
+}
+
+html[data-perf-safe] [data-widget-grid],
+html[data-perf-no-widget-grid] [data-widget-grid] {
+  display: block;
+}
+
+html[data-perf-safe] [data-widget-card],
+html[data-perf-no-widget-grid] [data-widget-card] {
+  margin-block-end: 0.75rem;
+}
+
+html[data-perf-safe] [data-widget-grid],
+html[data-perf-fixed-widget-rows] [data-widget-grid] {
+  grid-auto-rows: 12rem;
+}
+
+html[data-perf-safe] svg,
+html[data-perf-no-icons] svg {
+  visibility: hidden;
+}
+
+html[data-perf-safe] .sticky,
+html[data-perf-no-sticky-shell] .sticky {
+  position: static;
+}
+
+html[data-perf-no-widget-bodies] [data-widget-body] > * {
+  display: none;
+}
+
+::selection {
+  background: rgb(126 157 134 / 0.24);
+}

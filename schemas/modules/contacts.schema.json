@@ -1,0 +1,51 @@
+{
+  "schema_version": 2,
+  "module_id": "contacts",
+  "display_name": "Contacts",
+  "kind": "optional",
+  "entity_type": "contact",
+  "data_path": "modules/contacts/data",
+  "index_path": "modules/contacts/INDEX.md",
+  "default_view": "cards",
+  "enabled_by_default": false,
+  "fields": [
+    { "id": "name", "label": "Name", "type": "text", "required": true, "aliases": ["name", "title"], "renderer": "text", "source": "h1" },
+    { "id": "relationship", "label": "Relationship", "type": "enum", "required": false, "aliases": ["relationship", "relation"], "renderer": "status", "source": "field", "default": "Other", "options": ["Friend", "Family", "Work", "Client", "Vendor", "Other"] },
+    { "id": "organization", "label": "Organization", "type": "text", "required": false, "aliases": ["organization", "company", "team"], "renderer": "text", "source": "field" },
+    { "id": "email", "label": "Email", "type": "text", "required": false, "aliases": ["email", "mail"], "renderer": "link", "source": "field" },
+    { "id": "phone", "label": "Phone", "type": "text", "required": false, "aliases": ["phone", "mobile"], "renderer": "text", "source": "field" },
+    { "id": "tags", "label": "Tags", "type": "tags", "required": false, "aliases": ["tags"], "renderer": "tags", "source": "field" },
+    { "id": "relationships", "label": "Relationships", "type": "relationship", "required": false, "aliases": ["relationships", "related"], "renderer": "relation", "source": "field_or_wikilink" },
+    { "id": "attachments", "label": "Attachments", "type": "attachment", "required": false, "aliases": ["attachments", "files"], "renderer": "attachment", "source": "field" },
+    { "id": "notes", "label": "Notes", "type": "markdown", "required": false, "aliases": ["notes", "context"], "renderer": "markdown", "source": "section" }
+  ],
+  "renderers": ["text", "link", "tags", "relation", "attachment", "markdown", "generic"],
+  "validation": {
+    "paths_are_vault_relative": true,
+    "unknown_fields": "warn_and_preserve",
+    "unknown_blocks": "generic"
+  },
+  "views": ["cards", "list", "focused_entity"],
+  "widgets": [
+    {
+      "id": "contacts.recent",
+      "module_id": "contacts",
+      "label": "Recent Contacts",
+      "description": "Shows recently updated contacts.",
+      "renderer_id": "recent_contacts",
+      "default_size": { "width": 2, "height": 1 },
+      "allowed_sizes": [
+        { "width": 1, "height": 1 },
+        { "width": 2, "height": 1 },
+        { "width": 2, "height": 2 }
+      ],
+      "config_schema": {
+        "limit": { "type": "number", "default": 5, "min": 1, "max": 20 }
+      }
+    }
+  ],
+  "theme": {
+    "--contact-relationship-chip": "rgb(229 237 244)"
+  },
+  "migration_version": 1
+}

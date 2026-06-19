@@ -1,0 +1,81 @@
+{
+  "schema_version": 2,
+  "module_id": "notes",
+  "display_name": "Notes",
+  "kind": "starter",
+  "entity_type": "note",
+  "data_path": "modules/notes/data",
+  "index_path": "modules/notes/INDEX.md",
+  "default_view": "cards",
+  "enabled_by_default": true,
+  "fields": [
+    { "id": "title", "label": "Title", "type": "text", "required": true, "aliases": ["name", "title"], "renderer": "text", "source": "h1" },
+    { "id": "tags", "label": "Tags", "type": "tags", "required": false, "aliases": ["tags"], "renderer": "tags", "source": "field" },
+    { "id": "relationships", "label": "Relationships", "type": "relationship", "required": false, "aliases": ["relationships", "related"], "renderer": "relation", "source": "field_or_wikilink" },
+    { "id": "body", "label": "Body Blocks", "type": "markdown", "required": false, "aliases": [], "renderer": "markdown", "source": "body" }
+  ],
+  "renderers": ["text", "tags", "relation", "markdown", "generic"],
+  "validation": {
+    "paths_are_vault_relative": true,
+    "unknown_fields": "warn_and_preserve",
+    "unknown_blocks": "generic"
+  },
+  "views": ["cards", "list", "focused_entity"],
+  "widgets": [
+    {
+      "id": "notes.recent",
+      "module_id": "notes",
+      "label": "Recent Notes",
+      "description": "Shows recently updated notes.",
+      "renderer_id": "recent_notes",
+      "default_size": { "width": 2, "height": 1 },
+      "allowed_sizes": [
+        { "width": 1, "height": 1 },
+        { "width": 2, "height": 1 },
+        { "width": 2, "height": 2 },
+        { "width": 4, "height": 2 },
+        { "width": 7, "height": 2 }
+      ],
+      "config_schema": {
+        "limit": { "type": "number", "default": 5, "min": 1, "max": 20 }
+      }
+    },
+    {
+      "id": "notes.pinned",
+      "module_id": "notes",
+      "label": "Pinned Notes",
+      "description": "Shows notes pinned from the Dashboard hub.",
+      "renderer_id": "pinned_notes",
+      "default_size": { "width": 2, "height": 1 },
+      "allowed_sizes": [
+        { "width": 1, "height": 1 },
+        { "width": 2, "height": 1 },
+        { "width": 2, "height": 2 },
+        { "width": 4, "height": 2 },
+        { "width": 7, "height": 3 }
+      ],
+      "config_schema": {
+        "show_tags": { "type": "boolean", "default": true }
+      }
+    },
+    {
+      "id": "notes.by-tag",
+      "module_id": "notes",
+      "label": "Notes By Tag",
+      "description": "Shows notes matching a selected tag.",
+      "renderer_id": "notes_by_tag",
+      "default_size": { "width": 2, "height": 1 },
+      "allowed_sizes": [
+        { "width": 1, "height": 1 },
+        { "width": 2, "height": 1 },
+        { "width": 2, "height": 2 }
+      ],
+      "config_schema": {
+        "tag": { "type": "text", "default": "" },
+        "limit": { "type": "number", "default": 5, "min": 1, "max": 20 }
+      }
+    }
+  ],
+  "theme": {},
+  "migration_version": 1
+}

@@ -1,0 +1,185 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bentolife.local/schemas/module.schema.v2.schema.json",
+  "title": "BentoLife Module Schema v2",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "module_id",
+    "entity_type",
+    "fields",
+    "renderers"
+  ],
+  "properties": {
+    "schema_version": { "const": 2 },
+    "module_id": { "$ref": "#/$defs/safeIdentifier" },
+    "display_name": { "type": "string", "minLength": 1 },
+    "kind": { "enum": ["system", "starter", "optional"] },
+    "entity_type": { "$ref": "#/$defs/safeIdentifier" },
+    "data_path": { "$ref": "#/$defs/vaultRelativePath" },
+    "index_path": { "$ref": "#/$defs/vaultRelativePath" },
+    "default_view": { "$ref": "#/$defs/viewId" },
+    "enabled_by_default": { "type": "boolean" },
+    "fields": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/field" }
+    },
+    "renderers": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/rendererId" }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "views": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          { "$ref": "#/$defs/viewId" },
+          { "$ref": "#/$defs/viewDefinition" }
+        ]
+      }
+    },
+    "widgets": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/widgetType" }
+    },
+    "theme": {
+      "type": "object",
+      "additionalProperties": {
+        "type": ["string", "number", "boolean"]
+      }
+    },
+    "migration_version": { "type": "integer", "minimum": 1 }
+  },
+  "$defs": {
+    "safeIdentifier": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "safeFieldId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9 _-]+$"
+    },
+    "vaultRelativePath": {
+      "type": "string",
+      "minLength": 1,
+      "not": {
+        "anyOf": [
+          { "pattern": "^[A-Za-z]:" },
+          { "pattern": "^/" },
+          { "pattern": "(^|/)\\.\\.(/|$)" },
+          { "pattern": "\\\\" }
+        ]
+      }
+    },
+    "viewId": {
+      "enum": ["cards", "list", "table", "focused_entity", "system"]
+    },
+    "rendererId": {
+      "enum": [
+        "attachment",
+        "checklist",
+        "date",
+        "generic",
+        "link",
+        "list",
+        "markdown",
+        "progress",
+        "relation",
+        "status",
+        "tags",
+        "text"
+      ]
+    },
+    "field": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["id"],
+      "properties": {
+        "id": { "$ref": "#/$defs/safeFieldId" },
+        "label": { "type": "string" },
+        "type": { "type": "string" },
+        "aliases": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/safeFieldId" }
+        },
+        "renderer": { "$ref": "#/$defs/rendererId" },
+        "required": { "type": "boolean" },
+        "source": { "type": "string" },
+        "default": true,
+        "options": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "validation": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "viewDefinition": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["id"],
+      "properties": {
+        "id": { "$ref": "#/$defs/viewId" },
+        "label": { "type": "string" },
+        "default_sort": { "type": "string" },
+        "visible_fields": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/safeFieldId" }
+        },
+        "empty_state": { "type": "string" }
+      }
+    },
+    "widgetType": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["id", "module_id", "label", "renderer_id", "default_size"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z][a-z0-9_-]*\\.[a-z][a-z0-9_-]*$" },
+        "module_id": { "$ref": "#/$defs/safeIdentifier" },
+        "label": { "type": "string", "minLength": 1 },
+        "description": { "type": "string" },
+        "renderer_id": { "type": "string", "pattern": "^[a-z][a-z0-9_-]*$" },
+        "default_size": { "$ref": "#/$defs/widgetSize" },
+        "allowed_sizes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/widgetSize" }
+        },
+        "config_schema": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/widgetConfigField" }
+        }
+      }
+    },
+    "widgetSize": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["width", "height"],
+      "properties": {
+        "width": { "type": "integer", "minimum": 1, "maximum": 7 },
+        "height": { "type": "integer", "minimum": 1, "maximum": 3 }
+      }
+    },
+    "widgetConfigField": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["type"],
+      "properties": {
+        "label": { "type": "string" },
+        "type": { "enum": ["text", "number", "boolean", "enum", "tags", "date_range"] },
+        "default": true,
+        "min": { "type": ["number", "string"] },
+        "max": { "type": ["number", "string"] },
+        "options": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

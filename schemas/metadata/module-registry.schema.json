@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bentolife.local/schemas/module-registry.schema.json",
+  "title": "BentoLife Module Registry",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema_version", "modules"],
+  "properties": {
+    "schema_version": { "type": "integer", "minimum": 1 },
+    "modules": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/module" }
+    },
+    "warnings": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "$defs": {
+    "module": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["id", "display_name", "kind", "available", "installed", "enabled"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z][a-z0-9_-]*$" },
+        "display_name": { "type": "string" },
+        "kind": { "enum": ["system", "starter", "optional"] },
+        "available": { "type": "boolean" },
+        "installed": { "type": "boolean" },
+        "enabled": { "type": "boolean" },
+        "implementation_status": { "type": "string" },
+        "schema_path": { "type": ["string", "null"] },
+        "index_path": { "type": ["string", "null"] },
+        "schema_version": { "type": ["integer", "null"] },
+        "schema_migration_version": { "type": ["integer", "null"] },
+        "schema_warnings": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

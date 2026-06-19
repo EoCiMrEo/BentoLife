@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bentolife.local/schemas/theme-state.schema.json",
+  "title": "BentoLife Active Theme State",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema_version"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "workspace_theme": { "type": ["string", "null"] },
+    "module_overrides": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "preview": {
+      "type": ["object", "null"],
+      "additionalProperties": true
+    },
+    "updated_at": { "type": "string" }
+  }
+}

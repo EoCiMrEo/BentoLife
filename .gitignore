@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output
+dist/
+.vite/
+target/
+src-tauri/target/
+src-tauri/core/target/
+
+# Test output
+test-results/
+playwright-report/
+coverage/
+
+# Local configuration and secrets
+.env
+.env.*
+*.local
+
+# Logs and local release output
+*.log
+release/
+public-release/
+BentoLife-public/
+
+# Editor and OS noise
+.vs/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Temporary files
+.tmp/
+tmp/
+.cache/

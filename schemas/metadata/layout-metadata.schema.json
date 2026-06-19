@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bentolife.local/schemas/layout-metadata.schema.json",
+  "title": "BentoLife Legacy Layout Metadata",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "document_id", "vault_relative", "cards"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "document_id": { "type": "string", "pattern": "^bl_doc_" },
+    "vault_relative": { "const": true },
+    "cards": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/card" }
+    },
+    "updated_at": { "type": "string" }
+  },
+  "$defs": {
+    "card": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["section_match", "card_id", "width", "order", "widget"],
+      "properties": {
+        "section_match": { "type": "string" },
+        "card_id": { "type": "string" },
+        "width": { "enum": ["single", "wide", "full"] },
+        "order": { "type": "integer", "minimum": 0 },
+        "widget": { "type": "string" }
+      }
+    }
+  }
+}

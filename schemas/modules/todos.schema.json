@@ -1,0 +1,85 @@
+{
+  "schema_version": 2,
+  "module_id": "todos",
+  "display_name": "Todos",
+  "kind": "starter",
+  "entity_type": "todos",
+  "data_path": "modules/todos/data",
+  "index_path": "modules/todos/INDEX.md",
+  "default_view": "cards",
+  "enabled_by_default": true,
+  "fields": [
+    { "id": "title", "label": "Title", "type": "text", "required": true, "aliases": ["name", "title"], "renderer": "text", "source": "h1" },
+    { "id": "status", "label": "Status", "type": "enum", "required": false, "aliases": ["status", "state"], "renderer": "status", "source": "field", "default": "Not started", "options": ["Not started", "In progress", "Waiting", "Done"] },
+    { "id": "priority", "label": "Priority", "type": "enum", "required": false, "aliases": ["priority"], "renderer": "status", "source": "field", "default": "Medium", "options": ["Low", "Medium", "High", "Urgent"] },
+    { "id": "due", "label": "Due", "type": "date", "required": false, "aliases": ["due", "due date", "deadline"], "renderer": "date", "source": "field" },
+    { "id": "tags", "label": "Tags", "type": "tags", "required": false, "aliases": ["tags"], "renderer": "tags", "source": "field" },
+    { "id": "relationships", "label": "Relationships", "type": "relationship", "required": false, "aliases": ["relationships", "related"], "renderer": "relation", "source": "field_or_wikilink" },
+    { "id": "checklist", "label": "Checklist", "type": "checklist", "required": false, "aliases": ["checklist", "tasks"], "renderer": "checklist", "source": "body" },
+    { "id": "body", "label": "Body Blocks", "type": "markdown", "required": false, "aliases": [], "renderer": "markdown", "source": "body" }
+  ],
+  "renderers": ["text", "status", "date", "tags", "relation", "checklist", "markdown", "generic"],
+  "validation": {
+    "paths_are_vault_relative": true,
+    "unknown_fields": "warn_and_preserve",
+    "unknown_blocks": "generic"
+  },
+  "views": ["cards", "list", "focused_entity"],
+  "widgets": [
+    {
+      "id": "todos.today",
+      "module_id": "todos",
+      "label": "Tasks Today",
+      "description": "Shows incomplete tasks due today.",
+      "renderer_id": "todo_list",
+      "default_size": { "width": 2, "height": 1 },
+      "allowed_sizes": [
+        { "width": 1, "height": 1 },
+        { "width": 2, "height": 1 },
+        { "width": 2, "height": 2 }
+      ],
+      "config_schema": {
+        "show_completed": { "type": "boolean", "default": false }
+      }
+    },
+    {
+      "id": "todos.upcoming",
+      "module_id": "todos",
+      "label": "Upcoming Tasks",
+      "description": "Shows incomplete tasks due within a selected date range.",
+      "renderer_id": "todo_list",
+      "default_size": { "width": 2, "height": 1 },
+      "allowed_sizes": [
+        { "width": 1, "height": 1 },
+        { "width": 2, "height": 1 },
+        { "width": 2, "height": 2 }
+      ],
+      "config_schema": {
+        "range_days": { "type": "number", "default": 7, "min": 1, "max": 90 },
+        "show_completed": { "type": "boolean", "default": false }
+      }
+    },
+    {
+      "id": "todos.overdue",
+      "module_id": "todos",
+      "label": "Overdue Tasks",
+      "description": "Shows incomplete tasks past their due date.",
+      "renderer_id": "todo_list",
+      "default_size": { "width": 2, "height": 1 },
+      "allowed_sizes": [
+        { "width": 1, "height": 1 },
+        { "width": 2, "height": 1 },
+        { "width": 2, "height": 2 }
+      ],
+      "config_schema": {
+        "show_completed": { "type": "boolean", "default": false }
+      }
+    }
+  ],
+  "theme": {
+    "--todo-overdue-state": "rgb(159 58 58)",
+    "--todo-priority-emphasis": "rgb(215 180 106)",
+    "--todo-completed-state": "rgb(126 157 134)"
+  },
+  "migration_version": 1
+}

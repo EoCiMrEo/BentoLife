@@ -1,0 +1,67 @@
+{
+  "name": "bentolife",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.12.1",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build --configLoader runner",
+    "check": "corepack pnpm test && corepack pnpm run schemas:check && corepack pnpm run build",
+    "typecheck:unused": "tsc --noEmit --noUnusedLocals --noUnusedParameters",
+    "dead:exports": "node scripts/check-dead-exports.mjs",
+    "security:audit": "corepack pnpm audit",
+    "rust:check": "cargo check --manifest-path src-tauri/Cargo.toml",
+    "rust:test": "cargo test --workspace --manifest-path src-tauri/Cargo.toml",
+    "rust:clippy": "cargo clippy --workspace --manifest-path src-tauri/Cargo.toml -- -D warnings",
+    "preview": "vite preview",
+    "test": "vitest run --configLoader runner",
+    "test:watch": "vitest",
+    "schemas:check": "node scripts/validate-schemas.mjs",
+    "e2e": "playwright test",
+    "sync:tauri-config": "node scripts/sync-tauri-config.mjs",
+    "tauri": "node scripts/sync-tauri-config.mjs && tauri"
+  },
+  "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.14",
+    "@radix-ui/react-dropdown-menu": "^2.1.15",
+    "@radix-ui/react-label": "^2.1.7",
+    "@radix-ui/react-separator": "^1.1.7",
+    "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-tabs": "^1.1.12",
+    "@radix-ui/react-tooltip": "^1.2.7",
+    "@tauri-apps/api": "^2.5.0",
+    "@tauri-apps/plugin-dialog": "^2.7.1",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.468.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "remark-gfm": "^4.0.1",
+    "remark-parse": "^11.0.0",
+    "tailwind-merge": "^2.6.0",
+    "unified": "^11.0.5"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.53.0",
+    "@tailwindcss/vite": "^4.1.10",
+    "@tauri-apps/cli": "^2.5.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^24.0.3",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "@vitejs/plugin-react": "^4.6.0",
+    "jsdom": "^25.0.1",
+    "tailwindcss": "^4.1.10",
+    "typescript": "^5.7.3",
+    "vite": "^6.3.5",
+    "vitest": "^3.2.4"
+  },
+  "pnpm": {
+    "overrides": {
+      "form-data": "^4.0.6"
+    }
+  }
+}

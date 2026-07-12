@@ -1,8 +1,7 @@
 # BentoLife License
 
 Copyright (c) 2026 Luong Phuong Phu.
-All Rights Reserved.
-
+This is a source-available license, not an open-source license as defined by the Open Source Initiative (OSI). Commercial use requires explicit written permission from the copyright holder.
 ---
 
 ## Purpose
